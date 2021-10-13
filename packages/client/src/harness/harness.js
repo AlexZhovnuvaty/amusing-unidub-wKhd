@@ -38,11 +38,11 @@ export default class HarnessPage extends LitElement {
   getPages() {
     return[
     {
-        "name": "core-pack_nft",
-        "title": "Pack NFT",
-        "description": "Pack-based NFTs (like NBA Top Shot) with Admin and Marketplace contracts and IPFS integration.",
-        "category": "Foundations",
-        "route": "/core-pack_nft"
+        "name": "dao_core-nft",
+        "title": "Composable NFT Module",
+        "description": "DappStarter implementation of a base Composable NFT Project on Flow.",
+        "category": "Non-fungible Tokens",
+        "route": "/dao_core-nft"
     }
 ]; 
   }

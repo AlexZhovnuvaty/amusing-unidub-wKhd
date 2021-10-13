@@ -50,6 +50,8 @@ const dappConfigFile = path.join(__dirname, 'dapp-config.json');
   let queue = [];
   let tokens = 1000;
 
+  console.log(`\n========================Debug3: ${mode}`)
+
   if ((mode === MODE.DEFAULT) || (mode === MODE.TEST)) {
 
     // For testing, generate accounts etc. but don't
@@ -86,7 +88,7 @@ const dappConfigFile = path.join(__dirname, 'dapp-config.json');
 
       await createTestAccounts();
       updateConfiguration();
-      processContractFolders(['Flow', 'Decentology'])
+      processContractFolders(['Flow', 'Decentology', 'Registry'])
         .then(() => {
           if (mode === MODE.DEFAULT) {
             spawn('npx', ['watch', `node ${path.join(__dirname, SCRIPT_NAME)} deploy`, 'contracts/Project'], { stdio: 'inherit' });
@@ -322,6 +324,7 @@ const dappConfigFile = path.join(__dirname, 'dapp-config.json');
       }
       pending = true;
 
+      console.log(`\n========================Debug2: ${queue.length}`);
       if (itemIndex == queue.length) {
         clearInterval(handle);
         pending = false;
@@ -333,6 +336,7 @@ const dappConfigFile = path.join(__dirname, 'dapp-config.json');
       let item = queue[itemIndex];
 
       if (item !== null) {
+        // console.log(`\n========================Debug: ${item.contract}`);
         item.contract = Flow.replaceImportRefs(item.contract, dappConfig.contracts, item.prefix);
         console.log(
           `\n🛠   Deploying ${item.contractName} to account ${item.address}`
