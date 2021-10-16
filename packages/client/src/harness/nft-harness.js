@@ -32,13 +32,13 @@ export default class NftHarness extends LitElement {
       
         <!-- Registry -->
       
-        <action-card title="Registry - Register" description="Register a Tenant with the RegistryService to get an AuthNFT"
+        <action-card title="(As hospital) Registry - Register" description="Register a Tenant with the RegistryService to get an AuthNFT"
           action="registerRegistry" method="post" fields="acct">
           <account-widget field="acct" label="Account">
           </account-widget>
         </action-card>
       
-        <action-card title="NFT - Get NFT Tenant"
+        <action-card title="(As hospital) NFT - Get NFT Tenant"
           description="Get an instance of a Tenant from RegistryNFTContract to have your own data" action="nftTenant"
           method="post" fields="acct">
           <account-widget field="acct" label="Account">
@@ -47,13 +47,13 @@ export default class NftHarness extends LitElement {
       
         <!-- NFT -->
       
-        <action-card title="NFT - Provision Account" description="Set up a user account to handle NFTs"
+        <action-card title="(As hospital) NFT - Provision Account" description="Set up a user account to handle NFTs"
           action="provisionAccountNFT" method="post" fields="acct">
           <account-widget field="acct" label="Account">
           </account-widget>
         </action-card>
       
-        <action-card title="NFT - Mint NFT" description="Mint an NFT into an account using the Tenant's data" action="mintNFT"
+        <action-card title="(As hospital) NFT - Mint NFT" description="Mint an NFT into an account using the Tenant's data" action="mintNFT"
           method="post" fields="acct recipient nftName">
           <account-widget field="acct" label="Tenant Account">
           </account-widget>
@@ -61,23 +61,24 @@ export default class NftHarness extends LitElement {
           </account-widget>
           <text-widget field="nftName" label="Name of NFT" placeholder="Jacob Rocks"></text-widget>
         </action-card>
-      
-        <action-card title="NFT - Transfer NFT" description="Transfer an NFT from Giver --> Recipient" action="transferNFT"
+
+<!--       
+        <action-card title="NFT - Transfer NFT" description="Transfer an NFT from Giver -- Recipient" action="transferNFT"
           method="post" fields="giver recipient id">
           <account-widget field="giver" label="Giver">
           </account-widget>
           <account-widget field="recipient" label="Recipient">
           </account-widget>
           <text-widget field="id" label="ID" placeholder="0"></text-widget>
-        </action-card>
+        </action-card> -->
       
-        <action-card title="NFT - Get Owned NFTs" description="Get Owned NFTs" action="getNFTsInCollection" method="get"
+        <action-card title="(As hospital/pharma) NFT - Get Owned NFTs" description="Get Owned NFTs" action="getNFTsInCollection" method="get"
           fields="acct">
           <account-widget field="acct" label="Account">
           </account-widget>
         </action-card>
       
-        <action-card title="NFT - Get NFT Metadata" description="Get NFT Metadata" action="getNFTMetadata" method="get"
+        <action-card title="(As hospital/pharma) NFT - Get NFT Metadata" description="Get NFT Metadata" action="getNFTMetadata" method="get"
           fields="acct id">
           <account-widget field="acct" label="Account">
           </account-widget>
@@ -86,13 +87,13 @@ export default class NftHarness extends LitElement {
       
         <!-- Market -->
       
-        <action-card title="Marketplace - Provision Account" description="Set up an account to have a SaleCollection"
+        <action-card title="(As hospital) Marketplace - Provision Account" description="Set up an account to have a SaleCollection"
           action="provisionAccountMarketplace" method="post" fields="acct">
           <account-widget field="acct" label="Account">
           </account-widget>
         </action-card>
       
-        <action-card title="Marketplace - List NFT for sale" description="List NFT for sale. Price must be of type double."
+        <action-card title="(As hospital) Marketplace - List NFT for sale" description="List NFT for sale. Price must be of type double."
           action="listNFTForSale" method="post" fields="acct id price">
           <account-widget field="acct" label="Marketplace Account">
           </account-widget>
@@ -102,7 +103,7 @@ export default class NftHarness extends LitElement {
           </text-widget>
         </action-card>
       
-        <action-card title="Marketplace - Buy NFT" description="Buy an NFT from marketplace account" action="buyNFT"
+        <action-card title="(As pharma) Marketplace - Buy NFT" description="Buy an NFT from marketplace account" action="buyNFT"
           method="post" fields="marketplaceAcct buyer id">
           <account-widget field="marketplaceAcct" label="Marketplace Account">
           </account-widget>
@@ -113,7 +114,7 @@ export default class NftHarness extends LitElement {
         </action-card>
       
         <!-- Flow Token -->
-        <action-card title="Get Balance" description="Get the Flow Token balance of an account" action="getBalance"
+        <action-card title="(As hospital/pharma) Get Balance" description="Get the Flow Token balance of an account" action="getBalance"
           method="get" fields="account">
           <account-widget field="account" label="Account">
           </account-widget>
