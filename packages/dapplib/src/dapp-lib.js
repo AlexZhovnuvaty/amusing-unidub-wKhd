@@ -105,7 +105,7 @@ module.exports = class DappLib {
     },
       'nft_mint_nft',
       {
-        recipient: { value: data.recipient, type: t.Address },
+        dataowner: { value: data.dataowner, type: t.Address },
         metadata: { value: [{ key: 'name', value: data.nftName }], type: t.Dictionary({ key: t.String, value: t.String }) }
       }
     );

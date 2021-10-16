@@ -1,4 +1,6 @@
 import NonFungibleToken from Flow.NonFungibleToken
+import FlowToken from Flow.FlowToken
+import FungibleToken from Flow.FungibleToken
 import RegistryInterface from Registry.RegistryInterface
 import RegistryService from Registry.RegistryService
 
@@ -115,13 +117,22 @@ pub contract RegistryNFTContract: NonFungibleToken, RegistryInterface {
     pub resource NFT: NonFungibleToken.INFT {
         pub let id: UInt64
 
+        pub let dataowner: Address
+
+        pub let dataownervault: Capability<&FlowToken.Vault{FungibleToken.Receiver}>
+        
         pub var metadata: {String: String}
 
         // upon creating (or "minting") this NFT Resource,
         // we must pass in a reference to a Tenant to update its totalSupply.
-        init(_tenant: &Tenant{ITenantMinter}, _metadata: {String: String}) {
+        init(_tenant: &Tenant{ITenantMinter}, 
+            _dataowner: Address, 
+            _dataownervault: Capability<&FlowToken.Vault{FungibleToken.Receiver}>, 
+            _metadata: {String: String}) {
             // initialize NFT fields
             self.id = _tenant.totalSupply
+            self.dataowner = _dataowner
+            self.dataownervault = _dataownervault
             self.metadata = _metadata
 
             // update the Tenant's totalSupply
@@ -236,10 +247,14 @@ pub contract RegistryNFTContract: NonFungibleToken, RegistryInterface {
         // and deposits it in the recipients collection using 
         // their collection reference
         //
-        pub fun mintNFT(tenant: &Tenant{ITenantMinter}, recipient: &RegistryNFTContract.Collection{NonFungibleToken.CollectionPublic}, metadata: {String: String}) {
+        pub fun mintNFT(tenant: &Tenant{ITenantMinter}, 
+                        recipient: &RegistryNFTContract.Collection{NonFungibleToken.CollectionPublic}, 
+                        dataowner: Address, 
+                        dataownervault: Capability<&FlowToken.Vault{FungibleToken.Receiver}>,
+                        metadata: {String: String}) {
 
             // create a new NFT
-            var newNFT <- create NFT(_tenant: tenant, _metadata: metadata)
+            var newNFT <- create NFT(_tenant: tenant, _dataowner: dataowner, _dataownervault: dataownervault, _metadata: metadata)
 
             // deposit it in the recipient's account using their reference
             recipient.deposit(token: <-newNFT)

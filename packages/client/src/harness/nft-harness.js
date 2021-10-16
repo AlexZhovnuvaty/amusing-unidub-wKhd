@@ -57,7 +57,7 @@ export default class NftHarness extends LitElement {
           method="post" fields="acct recipient nftName">
           <account-widget field="acct" label="Tenant Account">
           </account-widget>
-          <account-widget field="recipient" label="Recipient Account">
+          <account-widget field="dataowner" label="Data Owner Account">
           </account-widget>
           <text-widget field="nftName" label="Name of NFT" placeholder="Jacob Rocks"></text-widget>
         </action-card>

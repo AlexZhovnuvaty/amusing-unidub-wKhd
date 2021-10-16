@@ -26,7 +26,7 @@ pub contract MarketplaceContract {
     // price of a NFT, or get all the ids of all the NFTs up for sale
     //
     pub resource interface SalePublic {
-        pub fun purchase(id: UInt64, recipient: &RegistryNFTContract.Collection{NonFungibleToken.Receiver}, buyTokens: @FungibleToken.Vault)
+        pub fun purchase(id: UInt64, recipient: &RegistryNFTContract.Collection{NonFungibleToken.Receiver}, buyTokens: @FungibleToken.Vault, royalty: @FungibleToken.Vault)
         pub fun idPrice(id: UInt64): UFix64?
         pub fun getIDs(): [UInt64]
     }
@@ -97,7 +97,7 @@ pub contract MarketplaceContract {
         // purchase
         // purchase lets a user send tokens to purchase a NFT that is for sale
         //
-        pub fun purchase(id: UInt64, recipient: &RegistryNFTContract.Collection{NonFungibleToken.Receiver}, buyTokens: @FungibleToken.Vault) {
+        pub fun purchase(id: UInt64, recipient: &RegistryNFTContract.Collection{NonFungibleToken.Receiver}, buyTokens: @FungibleToken.Vault, royalty: @FungibleToken.Vault) {
             pre {
                 // ensures only FlowTokens are passed in
                 buyTokens.isInstance(Type<@FlowToken.Vault>()):
@@ -115,10 +115,21 @@ pub contract MarketplaceContract {
                 ?? panic("Could not borrow reference to owner token vault")
             
             // deposit the user's tokens into the owners vault
-            vaultRef.deposit(from: <-buyTokens)
+            // vaultRef.deposit(from: <-buyTokens)
+            let borrowedNFT = self.ownerNFTCollection.borrow()!.borrowEntireNFT(id: id)
+                    ?? panic("Could not borrow the NFT from the user's collection")
+            
+            let dataOwnerVaultRef = borrowedNFT.dataownervault.borrow()
+                    ?? panic("Could not borrow reference to dataowner token vault")
             
             // remove the NFT from the owner's NFT Collection
             let nft <- self.ownerNFTCollection.borrow()!.withdraw(withdrawID: id)
+
+            // let royalty <- buyTokens.withdraw(amount: buyTokens.balance * 0.2)
+            
+            dataOwnerVaultRef.deposit(from: <-royalty)
+            // deposit the user's tokens into the owners vault
+            vaultRef.deposit(from: <-buyTokens)
 
             // deposit the NFT into the buyers NFT Collection
             recipient.deposit(token: <-nft)
