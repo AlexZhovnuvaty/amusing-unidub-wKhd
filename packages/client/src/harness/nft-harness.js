@@ -47,14 +47,14 @@ export default class NftHarness extends LitElement {
       
         <!-- NFT -->
       
-        <action-card title="(As hospital) NFT - Provision Account" description="Set up a user account to handle NFTs"
+        <action-card title="(As hospital/pharma) NFT - Provision Account" description="Set up a user account to handle NFTs"
           action="provisionAccountNFT" method="post" fields="acct">
           <account-widget field="acct" label="Account">
           </account-widget>
         </action-card>
       
         <action-card title="(As hospital) NFT - Mint NFT" description="Mint an NFT into an account using the Tenant's data" action="mintNFT"
-          method="post" fields="acct recipient nftName">
+          method="post" fields="acct dataowner nftName">
           <account-widget field="acct" label="Tenant Account">
           </account-widget>
           <account-widget field="dataowner" label="Data Owner Account">

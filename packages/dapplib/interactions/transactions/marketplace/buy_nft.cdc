@@ -28,8 +28,11 @@ transaction(id: UInt64, marketplaceAcct: Address) {
 
     execute {
         let cost = self.saleCollection.idPrice(id: id) ?? panic("An NFT with this id is not up for sale")
+        log("cost: ".concat(cost.toString()))
         let vault <- self.userVaultRef.withdraw(amount: cost * 0.8)
+        log("vault: ".concat(vault.balance.toString()))
         let royalty <- self.userVaultRef.withdraw(amount: cost * 0.2)
+        log("royalty: ".concat(royalty.balance.toString()))
 
         self.saleCollection.purchase(id: id, recipient: self.userNFTCollection, buyTokens: <-vault, royalty: <- royalty)
     }

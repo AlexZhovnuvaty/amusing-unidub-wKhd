@@ -104,7 +104,7 @@ pub contract MarketplaceContract {
                     "Only Flow Tokens are supported for purchase."
                 self.forSale[id] != nil:
                     "No NFT matching this id for sale!"
-                buyTokens.balance >= (self.forSale[id]!):
+                (buyTokens.balance + royalty.balance) >= (self.forSale[id]!):
                     "Not enough tokens to buy the NFT!"
             }
 

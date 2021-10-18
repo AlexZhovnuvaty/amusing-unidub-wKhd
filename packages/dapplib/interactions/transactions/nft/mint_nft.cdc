@@ -1,5 +1,6 @@
 import NonFungibleToken from Flow.NonFungibleToken
 import FlowToken from Flow.FlowToken
+import FungibleToken from Flow.FungibleToken
 import RegistryNFTContract from Registry.RegistryNFTContract
 
 // This transction uses the NFTMinter resource to mint a new NFT.
@@ -38,6 +39,6 @@ transaction(dataowner: Address, metadata: {String: String}) {
         let minter = self.tenant.minterRef()
 
         // mint the NFT and deposit it to the recipient's collection
-        minter.mintNFT(tenant: self.tenant, recipient: self.receiver, dataowner: Address, dataownervault: dataownervault, metadata: metadata)
+        minter.mintNFT(tenant: self.tenant, recipient: self.receiver, dataowner: dataowner, dataownervault: dataownervault, metadata: metadata)
     }
 }
