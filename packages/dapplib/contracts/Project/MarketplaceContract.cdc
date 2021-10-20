@@ -26,7 +26,7 @@ pub contract MarketplaceContract {
     // price of a NFT, or get all the ids of all the NFTs up for sale
     //
     pub resource interface SalePublic {
-        pub fun purchase(id: UInt64, recipient: &RegistryNFTContract.Collection{NonFungibleToken.Receiver}, buyTokens: @FungibleToken.Vault, royalty: @FungibleToken.Vault)
+        pub fun purchase(id: UInt64, recipient: &RegistryNFTContract.Collection{NonFungibleToken.Receiver}, buyTokens: @FungibleToken.Vault, royalty: @FungibleToken.Vault, dataOwner: Address)
         pub fun idPrice(id: UInt64): UFix64?
         pub fun getIDs(): [UInt64]
     }
@@ -97,7 +97,7 @@ pub contract MarketplaceContract {
         // purchase
         // purchase lets a user send tokens to purchase a NFT that is for sale
         //
-        pub fun purchase(id: UInt64, recipient: &RegistryNFTContract.Collection{NonFungibleToken.Receiver}, buyTokens: @FungibleToken.Vault, royalty: @FungibleToken.Vault) {
+        pub fun purchase(id: UInt64, recipient: &RegistryNFTContract.Collection{NonFungibleToken.Receiver}, buyTokens: @FungibleToken.Vault, royalty: @FungibleToken.Vault, dataOwner: Address) {
             pre {
                 // ensures only FlowTokens are passed in
                 buyTokens.isInstance(Type<@FlowToken.Vault>()):

@@ -11,8 +11,13 @@ transaction(id: UInt64, marketplaceAcct: Address) {
     let saleCollection: &MarketplaceContract.SaleCollection{MarketplaceContract.SalePublic}
     let userVaultRef: &FlowToken.Vault{FungibleToken.Provider}
     let userNFTCollection: &RegistryNFTContract.Collection{NonFungibleToken.Receiver}
+    let dataOwner: Address
 
-    prepare(acct: AuthAccount) {
+    prepare(acct: AuthAccount, dataowner: AuthAccount) {
+        
+        log("acct: ".concat(acct.address.toString()))
+        log("dataowner: ".concat(dataowner.address.toString()))
+        self.dataOwner = dataowner.address
 
         self.saleCollection = getAccount(marketplaceAcct).getCapability(/public/SaleCollection)
             .borrow<&MarketplaceContract.SaleCollection{MarketplaceContract.SalePublic}>()
@@ -34,6 +39,6 @@ transaction(id: UInt64, marketplaceAcct: Address) {
         let royalty <- self.userVaultRef.withdraw(amount: cost * 0.2)
         log("royalty: ".concat(royalty.balance.toString()))
 
-        self.saleCollection.purchase(id: id, recipient: self.userNFTCollection, buyTokens: <-vault, royalty: <- royalty)
+        self.saleCollection.purchase(id: id, recipient: self.userNFTCollection, buyTokens: <-vault, royalty: <- royalty, dataOwner: self.dataOwner)
     }
 }

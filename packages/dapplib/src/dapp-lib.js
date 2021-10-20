@@ -234,6 +234,7 @@ module.exports = class DappLib {
       config: config,
       roles: {
         proposer: data.buyer,
+        authorizers: [data.buyer, data.dataownerAcct]
       }
     },
       'marketplace_buy_nft',

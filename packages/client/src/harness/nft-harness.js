@@ -104,8 +104,10 @@ export default class NftHarness extends LitElement {
         </action-card>
       
         <action-card title="(As pharma) Marketplace - Buy NFT" description="Buy an NFT from marketplace account" action="buyNFT"
-          method="post" fields="marketplaceAcct buyer id">
+          method="post" fields="marketplaceAcct dataownerAcct buyer id">
           <account-widget field="marketplaceAcct" label="Marketplace Account">
+          </account-widget>
+          <account-widget field="dataownerAcct" label="Patient (Data Owner) Account">
           </account-widget>
           <account-widget field="buyer" label="Buyer Account">
           </account-widget>
