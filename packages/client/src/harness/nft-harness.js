@@ -47,7 +47,7 @@ export default class NftHarness extends LitElement {
       
         <!-- NFT -->
       
-        <action-card title="(As hospital/pharma) NFT - Provision Account" description="Set up a user account to handle NFTs"
+        <action-card title="(As hospital/patient/pharma) NFT - Provision Account" description="Set up a user account to handle NFTs"
           action="provisionAccountNFT" method="post" fields="acct">
           <account-widget field="acct" label="Account">
           </account-widget>
@@ -62,15 +62,15 @@ export default class NftHarness extends LitElement {
           <text-widget field="nftName" label="Name of NFT" placeholder="Jacob Rocks"></text-widget>
         </action-card>
 
-<!--       
-        <action-card title="NFT - Transfer NFT" description="Transfer an NFT from Giver -- Recipient" action="transferNFT"
+      
+        <action-card title="(As patient) NFT - Transfer NFT" description="Transfer an NFT from Giver -- Recipient" action="transferNFT"
           method="post" fields="giver recipient id">
           <account-widget field="giver" label="Giver">
           </account-widget>
           <account-widget field="recipient" label="Recipient">
           </account-widget>
           <text-widget field="id" label="ID" placeholder="0"></text-widget>
-        </action-card> -->
+        </action-card>
       
         <action-card title="(As hospital/pharma) NFT - Get Owned NFTs" description="Get Owned NFTs" action="getNFTsInCollection" method="get"
           fields="acct">

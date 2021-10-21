@@ -24,7 +24,7 @@ transaction(dataowner: Address, metadata: {String: String}) {
         // self.receiver = getAccount(recipient).getCapability(/public/NFTCollection)
         //     .borrow<&RegistryNFTContract.Collection{NonFungibleToken.CollectionPublic}>()
         //     ?? panic("Could not get receiver reference to the NFT Collection")
-        self.receiver = acct.getCapability(/public/NFTCollection)
+        self.receiver = getAccount(dataowner).getCapability(/public/NFTCollection)
             .borrow<&RegistryNFTContract.Collection{NonFungibleToken.CollectionPublic}>()
             ?? panic("Could not get receiver reference to the NFT Collection")
 
